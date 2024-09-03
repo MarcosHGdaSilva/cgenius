@@ -11,7 +11,7 @@ public interface EspecificacaoRepository extends JpaRepository<Especificacao, Lo
     Especificacao findByCpf(String cpf);
 
     @Query("SELECT e from Especificacao e WHERE e.cliente.id = :id")
-    Especificacao findByIdCliente(Longe id);
+    Especificacao findByIdCliente(Long id);
 
     @Transactional
     @Query("DELETE FROM Especificacao e WHERE e.cliente.cpf = :cpf")

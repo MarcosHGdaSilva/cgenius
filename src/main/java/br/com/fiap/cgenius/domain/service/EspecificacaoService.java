@@ -44,6 +44,15 @@ public class EspecificacaoService {
     }
     }
 
+    public Especificacao findByIdCliente(Long id){
+        Especificacao cliente = especificacaoRepository.findByIdCliente(id);
+        if (cliente != null) {
+            return cliente;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Especificacão não encontrado");
+        }
+    }
+
     public void deleteById(Long id){
         verificarId(id);
         especificacaoRepository.deleteById(id);

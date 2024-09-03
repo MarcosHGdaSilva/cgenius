@@ -96,6 +96,23 @@ public class EspecificacaoController {
     }
     }
 
+    @GetMapping("idcliente/{id}")
+    @Operation(summary = "Retorna uma especificacao especifica cadastrado no sistema.", description = "Endpoint que retorna um objeto do tipo especificacao com um id de cliente informado")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Especificacao encontrado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Especificacao não encontrado"),
+        @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<Especificacao> getIdCliente(@PathVariable Long id){
+        log.info("Buscar por id: {}", id);
+        Especificacao especificacao = especificacaoService.findByIdCliente(id);
+        if (especificacao != null) {
+            return ResponseEntity.ok(especificacao);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(NO_CONTENT)
     @Operation(summary = "Deleta uma especificacao pelo ID.", description = "Endpoint que deleta uma especificacao com um ID informado")
