@@ -47,7 +47,4 @@ public class TokenService {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
     }
-
-
-
 }

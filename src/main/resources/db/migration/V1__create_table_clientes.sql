@@ -76,9 +76,9 @@ CREATE SEQUENCE VENDA_SEQ START WITH 22 INCREMENT BY 50;
 -- Inserindo dados
 
 INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
-VALUES (11, 'Marcos Garrido', '38387788805', 'Comercial', '$2a$12$Ij5EUFMEeF/x8i/JwpEk0uwF6LLvl5Qgk8NN0hl7nwL2JMpNrMgfO', 'Regular'); --'pass123'
+VALUES (11, 'Marcos Garrido', '38387788805', 'Comercial', '$2a$12$Ij5EUFMEeF/x8i/JwpEk0uwF6LLvl5Qgk8NN0hl7nwL2JMpNrMgfO', 'Regular');
 INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
-VALUES (12, 'Izabelly Oliveira', '50958416818', 'Comercial', '$2a$12$0MDnFmSxvUvfXnCL/gfZSO51a1C/Va3zkpMO01nzeuuLzjlK06jG6', 'Regular'); --'pass234'
+VALUES (12, 'Izabelly Oliveira', '50958416818', 'Comercial', '$2a$12$0MDnFmSxvUvfXnCL/gfZSO51a1C/Va3zkpMO01nzeuuLzjlK06jG6', 'Regular');
 
 INSERT INTO PLANO (nome_plano, id_plano, descricao_plano, valor_plano)
 VALUES ('Premium', 1, 'Pacote premium,', 50.00);
@@ -86,14 +86,9 @@ INSERT INTO PLANO (nome_plano, id_plano, descricao_plano, valor_plano)
 VALUES ('Basic', 2, 'Pacote Basico,', 20.00);
 
 INSERT INTO SCRIPT (id_script, descricao_script, id_plano)
-VALUES (1000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 1);
+VALUES (1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 1);
 INSERT INTO SCRIPT (id_script, descricao_script, id_plano)
-VALUES (2000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 2);
-
--- INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
--- VALUES (1, 'Gabriel Cirillo', '234567891', TO_DATE('06-04-2004', 'DD-MM-YYYY'), 'Masculino', '09123380', '11979980903', 'cirilo@gmail.com', 'Influencia');
--- INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
--- VALUES (2, 'Anna Soares', '45678921', TO_DATE('06-04-2000', 'DD-MM-YYYY'), 'Feminino', '09080360', '11961674481', 'anna@gmail.com', 'Dominancia');
+VALUES (2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 2);
 
 INSERT INTO CLIENTE (id_cliente, nome_cliente, cpf_cliente, dt_nascimento, genero, cep, telefone, email, perfil_cliente)
 VALUES ('1','Gabriel Cirillo', '23456789123', '2004-06-04', 'Masculino', '09123380', '11979980903', 'cirilo@gmail.com', 'Influencia');
@@ -102,11 +97,11 @@ VALUES ('2','Anna Soares', '4567892123', '2000-06-04', 'Feminino', '09080360', '
 
 
 INSERT INTO ESPECIFICACAO (id_especificacao, tipo_cartao_credito, gasto_mensal, viaja_frequentemente, interesses, profissao, renda_mensal, dependentes, id_cliente)
-VALUES (105, 'Black', 20000.00, 1, 'Jogos, Shows, restaurantes, viagens', 'Desenvolvedor Java', 30000.00, 2, 1);
+VALUES (1, 'Black', 20000.00, 1, 'Jogos, Shows, restaurantes, viagens', 'Desenvolvedor Java', 30000.00, 2, 1);
 INSERT INTO ESPECIFICACAO (id_especificacao, tipo_cartao_credito, gasto_mensal, viaja_frequentemente, interesses, profissao, renda_mensal, dependentes, id_cliente)
-VALUES (108, 'Silver', 2000.00, 0, 'Shows, Livros, Academia', 'Desenvolvedora Front', 5000.00, 1, 2);
+VALUES (2, 'Silver', 2000.00, 0, 'Shows, Livros, Academia', 'Desenvolvedora Front', 5000.00, 1, 2);
 
 INSERT INTO VENDA (id_venda, id_atendente, id_cliente, id_script, id_plano)
-VALUES (101, 11, 1, 1000, 1);
+VALUES (1, 11, 1, 1, 1);
 INSERT INTO VENDA (id_venda, id_atendente, id_cliente, id_script, id_plano)
-VALUES (202, 12, 2, 2000, 2);
+VALUES (2, 12, 2, 2, 2);
