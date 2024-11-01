@@ -1,10 +1,16 @@
 package br.com.fiap.cgenius.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -12,7 +18,7 @@ import br.com.fiap.cgenius.domain.model.Atendente;
 import br.com.fiap.cgenius.domain.repository.AtendenteRepository;
 
 @Service
-public class AtendenteService {
+public class AtendenteService extends DefaultOAuth2UserService{
 
     @Autowired
     AtendenteRepository atendenteRepository;
@@ -78,4 +84,15 @@ public class AtendenteService {
         return atendente;
     }
 }
+    // @Override
+    // public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+    //     var oauth2User = super.loadUser(userRequest);
+    //     String cpf = oauth2User.getAttribute("cpf");
+    //     return atendenteRepository.findByCpf(cpf).orElseGet(
+    //         () -> {
+    //             var atendente = new Atendente(oauth2User);
+    //             return atendenteRepository.save(atendente);
+    //         }
+    //     );
+    // }
 }

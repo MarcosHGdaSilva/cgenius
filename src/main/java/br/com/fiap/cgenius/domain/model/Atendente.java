@@ -1,5 +1,8 @@
 package br.com.fiap.cgenius.domain.model;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,5 +47,12 @@ public class Atendente {
     private String senha;
 
     @Column(name="perfil_atendente")
-    private String perfil;   
+    private String perfil;
+    
+    // public Atendente(OAuth2User principal) {
+    //     super(List.of(new SimpleGrantedAuthority("USER")), principal.getAttributes(), "cpf");
+    //     this.cpf = principal.getAttribute("cpf");
+    //     this.nome = principal.getAttribute("nome");
+        
+    // }
 }

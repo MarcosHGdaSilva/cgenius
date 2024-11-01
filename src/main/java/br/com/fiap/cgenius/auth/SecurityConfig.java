@@ -20,7 +20,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/atendente").permitAll()
                         .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/docs").permitAll()
                         .anyRequest().authenticated()
-        );
+            // .oauth2Login(login -> login
+            //                         .loginPage("/oauth2/authorization/google")
+            //                         .userInfoEndpoint(userInfo -> userInfo.userService(new GoogleOAuth2UserService()))
+            //                         .permitAll())
+            );
 
         http.addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class);
         

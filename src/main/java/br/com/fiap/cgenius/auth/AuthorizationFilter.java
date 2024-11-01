@@ -29,16 +29,16 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        if(!header.startsWith("Bearer ")){
-            response.setStatus(401);
-            response.addHeader("Content-Type", "application/json");
-            response.getWriter().write("""
-                        {
-                            "message": "Token deve ser do tipo Bearer"
-                        }
-                    """);
-            return;
-        }
+        // if(!header.startsWith("Bearer ")){
+        //     response.setStatus(401);
+        //     response.addHeader("Content-Type", "application/json");
+        //     response.getWriter().write("""
+        //                 {
+        //                     "message": "Token deve ser do tipo Bearer"
+        //                 }
+        //             """);
+        //     return;
+        // }
         var token = header.replace("Bearer ", "");
 
         try{
