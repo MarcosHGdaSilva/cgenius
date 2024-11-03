@@ -43,7 +43,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
         try{
             var atendente = tokenService.getAtendenteFromToken(token);
-            var auth = new UsernamePasswordAuthenticationToken(atendente.getCpf(), atendente.getSenha(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
+            var auth = new UsernamePasswordAuthenticationToken(atendente.getEmail(), atendente.getSenha(), List.of(new SimpleGrantedAuthority("ROLE_USER")));
             SecurityContextHolder.getContext().setAuthentication(auth);
             filterChain.doFilter(request, response);
         }catch (Exception e){

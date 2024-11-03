@@ -8,6 +8,7 @@
 CREATE TABLE ATENDENTE(
     id_atendente INTEGER PRIMARY KEY,
     nome_atendente VARCHAR(50),
+    email_atendente VARCHAR(50),
     cpf_atendente VARCHAR(11),
     setor VARCHAR(20),
     senha VARCHAR,
@@ -75,10 +76,10 @@ CREATE SEQUENCE VENDA_SEQ START WITH 22 INCREMENT BY 50;
 
 -- Inserindo dados
 
-INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
-VALUES (11, 'Marcos Garrido', '38387788805', 'Comercial', '$2a$12$Ij5EUFMEeF/x8i/JwpEk0uwF6LLvl5Qgk8NN0hl7nwL2JMpNrMgfO', 'Regular'); --'pass123'
-INSERT INTO ATENDENTE (id_atendente, nome_atendente, cpf_atendente, setor, senha, perfil_atendente)
-VALUES (12, 'Izabelly Oliveira', '50958416818', 'Comercial', '$2a$12$0MDnFmSxvUvfXnCL/gfZSO51a1C/Va3zkpMO01nzeuuLzjlK06jG6', 'Regular'); --'pass234'
+INSERT INTO ATENDENTE (id_atendente, nome_atendente, email_atendente, cpf_atendente, setor, senha, perfil_atendente)
+VALUES (11, 'Marcos Garrido','marcos@gmail.com' , '38387788805', 'Comercial', '$2a$12$Ij5EUFMEeF/x8i/JwpEk0uwF6LLvl5Qgk8NN0hl7nwL2JMpNrMgfO', 'Regular'); --'pass123'
+INSERT INTO ATENDENTE (id_atendente, nome_atendente, email_atendente, cpf_atendente, setor, senha, perfil_atendente)
+VALUES (12, 'Izabelly Oliveira','izabelly@gmail.com' , '50958416818', 'Comercial', '$2a$12$0MDnFmSxvUvfXnCL/gfZSO51a1C/Va3zkpMO01nzeuuLzjlK06jG6', 'Regular'); --'pass234'
 
 INSERT INTO PLANO (nome_plano, id_plano, descricao_plano, valor_plano)
 VALUES ('Premium', 1, 'Pacote premium,', 50.00);

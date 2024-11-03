@@ -11,36 +11,36 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.fiap.cgenius.domain.model.Atendente;
-import br.com.fiap.cgenius.domain.repository.AtendenteRepository;
+import br.com.fiap.cgenius.domain.service.AtendenteService;
 
 
 @Service
 public class TokenService {
     public static final Algorithm ALGORITHM = Algorithm.HMAC256("cgenius");
-    private final AtendenteRepository atendenteRepository;
+    private final AtendenteService atendenteService;
 
-    public TokenService(AtendenteRepository atendenteRepository){
-        this.atendenteRepository = atendenteRepository;
+    public TokenService(AtendenteService atendenteService){
+        this.atendenteService = atendenteService;
     }
 
-    public Token createToken(String cpf){
+    public Token createToken(String email){
         var expirationAt = LocalDateTime.now().plus(1, ChronoUnit.HOURS).toInstant(ZoneOffset.ofHours(-3));
 
         String token = JWT.create()
-            .withSubject(cpf)
+            .withSubject(email)
             .withExpiresAt(expirationAt)
             .withIssuer("cgenius")
             .sign(ALGORITHM);
-        return new Token(token, cpf);
+        return new Token(token, email);
     }
 
     public Atendente getAtendenteFromToken(String token) {
-        var cpf = JWT.require(ALGORITHM)
+        var email = JWT.require(ALGORITHM)
                 .withIssuer("cgenius")
                 .build()
                 .verify(token)
                 .getSubject();    
-        var atendente = atendenteRepository.findByCpf(cpf);
+        var atendente = atendenteService.findByEmail(email);
         if (atendente != null) {
             return atendente;
         } else {

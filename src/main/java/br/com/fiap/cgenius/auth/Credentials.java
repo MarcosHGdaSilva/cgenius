@@ -1,5 +1,5 @@
 package br.com.fiap.cgenius.auth;
 
-public record Credentials(String cpf, String senha) {
+public record Credentials(String email, String senha) {
 
 }

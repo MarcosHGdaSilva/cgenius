@@ -21,10 +21,32 @@ import br.com.fiap.cgenius.domain.repository.AtendenteRepository;
 public class AtendenteService extends DefaultOAuth2UserService{
 
     @Autowired
-    AtendenteRepository atendenteRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private final AtendenteRepository atendenteRepository;
+
+    public AtendenteService(AtendenteRepository atendenteRepository) {
+        this.atendenteRepository = atendenteRepository;
+    }
+    
+    // public Atendente create(OAuth2User principal) {
+    //     if (atendenteRepository.findByEmail(principal.getAttribute("email")).isEmpty()) {
+    //         return atendenteRepository.save(new Atendente(principal));
+            
+    //     }
+    //     throw new ResponseStatusException(HttpStatus.CONFLICT, "Atendente já cadastrado");
+    // }
+
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        var oauth2User = super.loadUser(userRequest);
+        String email = oauth2User.getAttribute("email");
+        return atendenteRepository.findByEmail(email).orElseGet(
+            () -> {
+                var atendente = new Atendente(oauth2User);
+                return atendenteRepository.save(atendente);
+            }
+        );
+    }
 
     public List<Atendente> findAll() {
         return atendenteRepository.findAll();
@@ -53,6 +75,11 @@ public class AtendenteService extends DefaultOAuth2UserService{
         }
     }
 
+    public Atendente findByEmail(String email_atendente){
+        return atendenteRepository.findByEmail(email_atendente)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente não encontrado"));
+    }
+
     public Atendente update(Atendente atendente) {
         atendente.setSenha(passwordEncoder.encode(atendente.getSenha()));
         return atendenteRepository.save(atendente);
@@ -78,12 +105,16 @@ public class AtendenteService extends DefaultOAuth2UserService{
 
     private Atendente verificarCpf(String cpf_atendente){
         Atendente atendente = atendenteRepository.findByCpf(cpf_atendente);
-    if (atendente == null) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente não encontrado");
-    }else{
-        return atendente;
+        if (atendente == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente não encontrado");
+        }else{
+            return atendente;
+        }   
     }
-}
+
+    public void saveTemporary(Atendente atendente) {
+        atendenteRepository.save(atendente);
+    }
     // @Override
     // public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     //     var oauth2User = super.loadUser(userRequest);

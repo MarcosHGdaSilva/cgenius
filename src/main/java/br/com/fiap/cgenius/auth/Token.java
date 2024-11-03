@@ -1,5 +1,5 @@
 package br.com.fiap.cgenius.auth;
 
-public record Token(String token, String cpf) {
+public record Token(String token, String email) {
 
 }

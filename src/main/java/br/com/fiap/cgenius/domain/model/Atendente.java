@@ -1,6 +1,9 @@
 package br.com.fiap.cgenius.domain.model;
 
+import java.util.List;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import jakarta.persistence.Column;
@@ -18,11 +21,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "atendente")
-public class Atendente {
+public class Atendente extends DefaultOAuth2User {
     @Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id_atendente")
@@ -31,6 +31,10 @@ public class Atendente {
     @Column(name="nome_atendente")
     @NotBlank(message = "Campo obrigatório")
     private String nome;
+
+    @Column(name="email_atendente")
+    @NotBlank(message = "Campo obrigatório")
+    private String email;
 
     @Column(name="cpf_atendente")
     @NotBlank(message = "Campo obrigatório")
@@ -49,10 +53,23 @@ public class Atendente {
     @Column(name="perfil_atendente")
     private String perfil;
     
-    // public Atendente(OAuth2User principal) {
-    //     super(List.of(new SimpleGrantedAuthority("USER")), principal.getAttributes(), "cpf");
-    //     this.cpf = principal.getAttribute("cpf");
-    //     this.nome = principal.getAttribute("nome");
-        
-    // }
+    
+    public Atendente(OAuth2User principal) {
+        super(List.of(new SimpleGrantedAuthority("USER")), principal.getAttributes(), "email");
+        this.email = principal.getAttribute("email");
+        this.nome = principal.getAttribute("nome");
+    }
+
+    public Atendente(Long id, String nome, String email, String cpf, String setor, String senha, String perfil) {
+        super(List.of(new SimpleGrantedAuthority("USER")), null, "email");
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.cpf = cpf;
+        this.setor = setor;
+        this.senha = senha;
+        this.perfil = perfil;
+    }
+    
+
 }
