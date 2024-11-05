@@ -31,7 +31,7 @@ public class SecurityConfig {
                         .permitAll())
                 .oauth2Login(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/finalizar", true)
+                        .defaultSuccessUrl("/chat", true)
                         .userInfoEndpoint(userInfo -> userInfo.userService(atendenteService))
                         .permitAll());
         
