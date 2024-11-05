@@ -1,6 +1,7 @@
 package br.com.fiap.cgenius.domain.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -53,23 +54,70 @@ public class Atendente extends DefaultOAuth2User {
     @Column(name="perfil_atendente")
     private String perfil;
     
+    public Atendente() {
+        super(List.of(), Map.of("name", "Anonymous"), "name");
+    }
     
     public Atendente(OAuth2User principal) {
-        super(List.of(new SimpleGrantedAuthority("USER")), principal.getAttributes(), "email");
+        super(List.of(new SimpleGrantedAuthority("USER")), principal.getAttributes(), "name");
         this.email = principal.getAttribute("email");
         this.nome = principal.getAttribute("nome");
     }
 
-    public Atendente(Long id, String nome, String email, String cpf, String setor, String senha, String perfil) {
-        super(List.of(new SimpleGrantedAuthority("USER")), null, "email");
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
         this.setor = setor;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
         this.perfil = perfil;
     }
-    
 
 }

@@ -32,13 +32,13 @@ public class AuthService {
         throw new RuntimeException("Senha inválida");
     }
 
-    // public Token loginOAuth2(OAuth2User principal){
-    //     var atendente = atendenteService.findByEmail(principal.getAttribute("email"));
-    //     if(atendente == null){
-    //         atendente = new Atendente(principal);
-    //     }
-    //     return tokenService.createToken(atendente.getEmail());
-    // }
+    public Token loginOAuth2(OAuth2User principal){
+        var atendente = atendenteService.findByEmail(principal.getAttribute("email"));
+        if(atendente == null){
+            atendente = new Atendente(principal);
+        }
+        return tokenService.createToken(atendente.getEmail());
+    }
 
     // public boolean register(Credentials credentials) {
     //     var atendente = atendenteRepository.findByEmail(credentials.email());

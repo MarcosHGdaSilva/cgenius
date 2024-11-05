@@ -16,20 +16,24 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthorizationFilter authorizationFilter, AtendenteService atendenteService) throws Exception {
+        http.csrf(csrf -> csrf.disable());
         http
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                //         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                //         .requestMatchers(HttpMethod.POST, "/atendente").permitAll()
-                //         .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/docs").permitAll()
-                //         .requestMatchers(HttpMethod.POST, "/finalizar").permitAll()
-                //         .anyRequest().authenticated()
-                // .oauth2Login(login -> login
-                //                         .loginPage("/oauth2/authorization/google")
-                //                         .userInfoEndpoint(userInfo -> userInfo.userService(atendenteService))
-                //                         .permitAll())
-            ;
-
-
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/chat").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/atendente").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/docs").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/chat", true)
+                        .permitAll())
+                .oauth2Login(login -> login
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/finalizar", true)
+                        .userInfoEndpoint(userInfo -> userInfo.userService(atendenteService))
+                        .permitAll());
         
         return http.build();
     }

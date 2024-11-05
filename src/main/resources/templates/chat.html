@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Chat Client</title>
@@ -22,4 +22,21 @@
         }
     </script>
 </body>
-</html> -->
+</html>
+<select id="clientSelect">
+    <option value="client1">Client 1</option>
+    <option value="client2">Client 2</option>
+    <option value="client3">Client 3</option>
+</select>
+
+<script>
+    const clientSelect = document.getElementById('clientSelect');
+
+    function sendMessage() {
+        const message = messageInput.value;
+        const selectedClient = clientSelect.value;
+        // Aqui você pode adicionar a lógica para enviar a mensagem e o cliente selecionado para o servidor
+        messagesDiv.innerHTML += `<div><strong>${selectedClient}:</strong> ${message}</div>`;
+        messageInput.value = '';
+    }
+</script>

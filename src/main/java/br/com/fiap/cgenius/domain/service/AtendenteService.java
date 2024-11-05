@@ -29,13 +29,16 @@ public class AtendenteService extends DefaultOAuth2UserService{
         this.atendenteRepository = atendenteRepository;
     }
     
-    // public Atendente create(OAuth2User principal) {
-    //     if (atendenteRepository.findByEmail(principal.getAttribute("email")).isEmpty()) {
-    //         return atendenteRepository.save(new Atendente(principal));
+    public Atendente create(OAuth2User principal) {
+        if (atendenteRepository.findByEmail(principal.getAttribute("email")).isEmpty()) {
+            Atendente atendente = new Atendente();
+            atendente.setNome(principal.getAttribute("name"));
+            atendente.setEmail(principal.getAttribute("email"));
+            return atendenteRepository.save(atendente);
             
-    //     }
-    //     throw new ResponseStatusException(HttpStatus.CONFLICT, "Atendente já cadastrado");
-    // }
+        }
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Atendente já cadastrado");
+    }
 
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         var oauth2User = super.loadUser(userRequest);

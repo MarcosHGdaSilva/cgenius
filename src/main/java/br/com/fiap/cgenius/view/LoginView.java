@@ -15,27 +15,42 @@ import br.com.fiap.cgenius.auth.AuthService;
 import br.com.fiap.cgenius.auth.Credentials;
 import br.com.fiap.cgenius.auth.Token;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 @Route("login")
 public class LoginView extends VerticalLayout {
 
     @Autowired
     private AuthService authService;
 
+    private ResourceBundle messages;
+
     public LoginView() {
-        TextField emailField = new TextField("Email");
-        PasswordField passwordField = new PasswordField("Senha");
-        Button loginButton = new Button("Login");
+        Locale locale = new Locale("pt", "BR");
+        messages = ResourceBundle.getBundle("messages", locale);
+
+        TextField emailField = new TextField(messages.getString("email"));
+        PasswordField passwordField = new PasswordField(messages.getString("password"));
+        Button loginButton = new Button(messages.getString("login"));
+        Button googleLoginButton = new Button(messages.getString("login.google"));
 
         loginButton.addClickListener(event -> {
             try {
                 Credentials credentials = new Credentials(emailField.getValue(), passwordField.getValue());
                 Token token = authService.login(credentials);
-                Notification.show("Login bem-sucedido: " + token);
+                Notification.show(messages.getString("login.success") + ": " + token);
+                getUI().ifPresent(ui -> ui.navigate("ChatView"));
             } catch (Exception e) {
-                Notification.show("Falha no login: " + e.getMessage());
+                System.out.println(e);
+                Notification.show(messages.getString("login.failure") + ": " + e.getMessage());
             }
         });
 
-        add(emailField, passwordField, loginButton);
+        googleLoginButton.addClickListener(event -> {
+            getUI().ifPresent(ui -> ui.getPage().setLocation("/oauth2/authorization/google"));
+        });
+
+        add(emailField, passwordField, loginButton, googleLoginButton);
     }
 }

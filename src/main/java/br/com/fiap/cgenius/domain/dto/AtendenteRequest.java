@@ -12,13 +12,6 @@ public record AtendenteRequest(
 ) {
     public Atendente toModel(){
         return new Atendente(
-            null,
-            nome,
-            email,
-            cpf,
-            setor,
-            senha,
-            perfil
             );
     }
     
